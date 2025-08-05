@@ -1,5 +1,5 @@
 const Pics = () => (
-	<div class="container mx-auto pb-6">
+	<div className="container mx-auto pb-6">
         yeaaa   
     </div>
 
