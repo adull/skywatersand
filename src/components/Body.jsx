@@ -1,8 +1,8 @@
-const Pics = () => (
+const Body = () => (
 	<div className="container mx-auto pb-6">
-        yeaaa   
+        This is the body   
     </div>
 
 );
 
-export default Pics;
+export default Body;
