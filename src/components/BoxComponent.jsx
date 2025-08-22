@@ -1,10 +1,11 @@
 import { useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
+import { RigidBody } from '@react-three/rapier'
 
-const Three = ({ update }) => {
-    const  meshRef = useRef(0)
+const Three = ({ initPos, gravity, update }) => {
+    const  meshRef = useRef()
+    const bodyRef = useRef()
     useEffect(() => {
-        // console.log({ state })
         update()
     }, [])
 
@@ -14,12 +15,17 @@ const Three = ({ update }) => {
         }
     })
 
+    const hasGravity = gravity ? 1 : 0
+    console.log({ hasGravity})
     return (
-        <mesh ref={meshRef} position={[0,0,0]}>
-            <boxGeometry args={[10,10,10]} />
-            <meshStandardMaterial color="orange" />
-        </mesh>
+        
+            <RigidBody ref={bodyRef} linearDamping={4} canSleep position={ initPos ?? [0,0,0] } colliders={"cuboid"} gravityScale={hasGravity}>
+                <mesh ref={meshRef} >
+                    <boxGeometry args={[10,10,10]} />
+                    <meshStandardMaterial color="orange" />
+                </mesh>
+            </RigidBody>
     );
-    }
+}
 
 export default Three;

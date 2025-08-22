@@ -3,8 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 
 import BoxComponent from './BoxComponent'
-import { ConstantColorFactor } from 'three'
-
+import { Physics } from '@react-three/rapier'
 
 const Three = () => {
     const camRef = useRef(null)
@@ -33,7 +32,12 @@ const Three = () => {
                 <PerspectiveCamera makeDefault ref={camRef}/>
                 <directionalLight color="white" position={[0, 0, 5]} />
                 <directionalLight color="white" position={[0, 5, 0]} />
-                <BoxComponent update={update}/>
+                <Physics gravity={[0, -90.81, 0]}>
+                    <BoxComponent update={update} gravity={true} />
+                    <BoxComponent update={update} gravity={false} initPos={[0,-5,0]} />
+                    <BoxComponent update={update} gravity={false} initPos={[20,0,0]} />
+                </Physics>
+                
                 <OrbitControls ref={controlsRef} autoRotateSpeed={0.2} autoRotate makeDefault />
                 <gridHelper
                     ref={gridRef}
