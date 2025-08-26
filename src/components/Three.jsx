@@ -41,6 +41,9 @@ const Three = () => {
         setHeight(parentHeight - nonCanvasHeight)
     }, [])
 
+    const containerArgs = { width: 50, height: 100, depth: 30 }
+    const containerPos = { x: 0, y: 0, z: 0 }
+
     return (
         <div className="w-full h-full"  ref={domRef}>
             <Canvas className="h-full" id={domId} style={{height}}>
@@ -49,7 +52,7 @@ const Three = () => {
                 <directionalLight color="white" position={[0, 50, 0]} />
                 <directionalLight color="white" position={[50, 50, -50]} />
                 <Physics gravity={[0, -90.81, 0]}>
-                    <ContainerBox />
+                    <ContainerBox args={containerArgs} initPos={containerPos}/>
                     {/* <BoxComponent update={update} gravity={true} />
                     <BoxComponent update={update} gravity={false} initPos={[0,-5,0]} />
                     <BoxComponent update={update} gravity={false} initPos={[20,0,0]} /> */}
