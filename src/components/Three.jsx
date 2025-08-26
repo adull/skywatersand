@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { Physics } from '@react-three/rapier'
@@ -25,7 +25,6 @@ const Three = () => {
 
     useEffect(() => {
         const el = domRef.current
-        // const parent = el.parentNode
         const parent = el
 
         const parentHeight = parent.clientHeight
@@ -35,26 +34,20 @@ const Three = () => {
         let nonCanvasHeight = 0
         parentChildren.forEach((item, index) => {
             if(index !== domIndex) {
-                console.log({item })
                 nonCanvasHeight += item.clientHeight
             }
         })
-
-        console.log({ parentHeight, nonCanvasHeight})
         
         setHeight(parentHeight - nonCanvasHeight)
     }, [])
 
-    const updateCamera = (c) => {
-        console.log(c)
-    }
-
     return (
         <div className="w-full h-full"  ref={domRef}>
             <Canvas className="h-full" id={domId} style={{height}}>
-                <PerspectiveCamera makeDefault ref={camRef} position={cameraPos} rotation={[0, -Math.PI, 0]} onUpdate={(c) => updateCamera(c)} />
+                <PerspectiveCamera makeDefault ref={camRef} position={cameraPos} rotation={[0, -Math.PI, 0]} />
                 <directionalLight color="white" position={[0, 0, 50]} />
                 <directionalLight color="white" position={[0, 50, 0]} />
+                <directionalLight color="white" position={[50, 50, -50]} />
                 <Physics gravity={[0, -90.81, 0]}>
                     <ContainerBox />
                     {/* <BoxComponent update={update} gravity={true} />
