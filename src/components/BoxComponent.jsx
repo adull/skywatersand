@@ -7,15 +7,15 @@ const BoxComponent = ({ initPos, gravity }) => {
     const bodyRef = useRef()
 
     useFrame(() => {
-        if(meshRef.current) {
-            meshRef.current.rotation.z += 0.01
-        }
+        // if(meshRef.current) {
+        //     meshRef.current.rotation.z += 0.01
+        // }
     })
 
     const hasGravity = gravity ? 1 : 0
     console.log({ hasGravity})
     return (
-            <RigidBody ref={bodyRef} linearDamping={4} canSleep position={ initPos ?? [0,0,0] } colliders={"cuboid"} gravityScale={hasGravity}>
+            <RigidBody ref={bodyRef} linearDamping={4} rotation={[Math.PI / 5, - Math.PI / 2, - Math.PI / 2]} canSleep position={ initPos ?? [0,0,0] } colliders={"cuboid"} gravityScale={hasGravity}>
                 <mesh ref={meshRef} >
                     <boxGeometry args={[10,10,10]} />
                     <meshStandardMaterial color="orange" />

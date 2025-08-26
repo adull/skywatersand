@@ -5,7 +5,7 @@ import * as THREE from 'three'
 
 import BoxComponent from './BoxComponent'
 
-const ContainerBox = ({ initPos, args }) => {
+const ContainerBox = ({ initPos, args, children }) => {
     const [color, setColor] = useState(new THREE.Color())
 
     const createFaces = ({args={ width: 50, height: 100, depth: 30 }, initPos={ x: 0, y: 0, z: 0 }} = {}) => {
@@ -72,7 +72,7 @@ const ContainerBox = ({ initPos, args }) => {
                     </RigidBody>
                 )
             })}
-            <BoxComponent gravity={true} />
+            {children}
             </>
             
     );

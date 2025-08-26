@@ -12,7 +12,7 @@ const updateSavedCamPos = (camRef) => {
 }
 
 const getSavedCamPos = () => {
-    const defaultPos = [0,20,100]
+    const defaultPos = JSON.stringify({x: 0,y: 20,z: 100})
     const camPos = sessionStorage.getItem("camPos")
     return camPos ?? defaultPos
 }

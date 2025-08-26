@@ -4,10 +4,12 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { Physics } from '@react-three/rapier'
 
 import { getSavedCamPos } from '../helpers'
+import { GRAVITY } from '../helpers/const'
 
 import BoxComponent from './BoxComponent'
 import CameraHelperButtons from './CameraHelperButtons'
 import ContainerBox from './ContainerBox'
+import Water from './Water'
 
 
 const Three = () => {
@@ -20,7 +22,9 @@ const Three = () => {
     
     const domId = `canvasContainer`
 
-    const cp = JSON.parse(getSavedCamPos())
+    const ugh = getSavedCamPos()
+    console.log({ ugh })
+    const cp = JSON.parse(ugh)
     const cameraPos = [cp.x,cp.y,cp.z]
 
     useEffect(() => {
@@ -42,7 +46,10 @@ const Three = () => {
     }, [])
 
     const containerArgs = { width: 50, height: 100, depth: 30 }
-    const containerPos = { x: 0, y: 0, z: 0 }
+    const containerPos = { x: 0, y: 10, z: 0 }
+    const bounds = { minX: containerPos.x - containerArgs.width / 2, maxX: containerPos.x + containerArgs.width / 2, 
+                     minY: containerPos.y - containerArgs.height / 2, maxY: containerPos.y + containerArgs.height / 2, 
+                     minZ: containerPos.z - containerArgs.depth /2, maxZ: containerPos.x + containerArgs.depth / 2 }
 
     return (
         <div className="w-full h-full"  ref={domRef}>
@@ -51,11 +58,11 @@ const Three = () => {
                 <directionalLight color="white" position={[0, 0, 50]} />
                 <directionalLight color="white" position={[0, 50, 0]} />
                 <directionalLight color="white" position={[50, 50, -50]} />
-                <Physics gravity={[0, -90.81, 0]}>
-                    <ContainerBox args={containerArgs} initPos={containerPos}/>
-                    {/* <BoxComponent update={update} gravity={true} />
-                    <BoxComponent update={update} gravity={false} initPos={[0,-5,0]} />
-                    <BoxComponent update={update} gravity={false} initPos={[20,0,0]} /> */}
+                <Physics gravity={[0, GRAVITY, 0]}>
+                    <ContainerBox args={containerArgs} initPos={containerPos}>
+                        {/* <BoxComponent gravity={true} /> */}
+                        <Water bounds={bounds} />
+                    </ContainerBox>
                 </Physics>
                 
                 <OrbitControls ref={controlsRef} makeDefault />
